@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="student.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Student Assignment Tracker</title>
+</head>
+<body>
+
+  <header class="navbar">
+    <form class="search-form" role="search">
+      <label for="searchInput" class="visually-hidden">Search assignments</label>
+      <input type="text" id="searchInput" placeholder="Search assignments...">
+      <button type="submit" aria-label="Search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </form>
+
+    <p class="greeting-message">Hello, Tumaini</p>
+
+    <div class="navbar-actions">
+      <button type="button" id="notificationBell" class="notification-bell" aria-label="Notifications">
+        <i class="fa-solid fa-bell"></i>
+      </button>
+      <div class="avatar" aria-label="Profile"></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="summary-display">
+      <div class="summary-card">
+        <span class="card-icon icon-overdue"><i class="fa-solid fa-triangle-exclamation"></i></span>
+        <div class="card-body">
+          <span class="card-data" id="overdueInfo">5</span>
+          <span class="card-info">Overdue</span>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <span class="card-icon icon-week"><i class="fa-solid fa-calendar-week"></i></span>
+        <div class="card-body">
+          <span class="card-data" id="dueInfo">12</span>
+          <span class="card-info">Due This Week</span>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <span class="card-icon icon-today"><i class="fa-solid fa-clock"></i></span>
+        <div class="card-body">
+          <span class="card-data" id="dueTodayInfo">5</span>
+          <span class="card-info">Due Today</span>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <span class="card-icon icon-completed"><i class="fa-solid fa-circle-check"></i></span>
+        <div class="card-body">
+          <span class="card-data" id="completedInfo">5</span>
+          <span class="card-info">Completed</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="filter-info">
+      <div class="filter-chips">
+        <button type="button" class="filter-btn active" data-filter="all">All</button>
+        <button type="button" class="filter-btn" data-filter="dueToday">Due Today</button>
+        <button type="button" class="filter-btn" data-filter="thisWeek">This Week</button>
+        <button type="button" class="filter-btn" data-filter="overdue">Overdue</button>
+      </div>
+      <button type="button" id="clearFilter" class="clear-btn">Clear Filters</button>
+    </section>
+
+    <section class="task-list">
+      <ul id="taskList">
+        <li class="task-item" data-id="1">
+          <input type="checkbox" class="task-checkbox" aria-label="Mark as complete">
+          <div class="task-content">
+            <h3 class="task-title">Discrete Math Problem Set</h3>
+            <p class="task-meta">
+              <span class="task-course">Information Technology</span>
+              <span class="task-due">Due Oct 26, 11:59 PM</span>
+            </p>
+          </div>
+          <span class="task-priority priority-high">High</span>
+          <button type="button" class="task-menu" aria-label="More options">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </button>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="student.js"></script>
+</body>
+</html>
