@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 *,
 *::before,
@@ -9,12 +10,13 @@
 
 body {
     background-color: #f3f5f8;
-    font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
                  Roboto, sans-serif;
     color: #172033;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
-
 
 header {
     width: 100%;
@@ -27,12 +29,11 @@ header {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-
 .search-form {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex: 1;            
+    flex: 1;
     max-width: 400px;
 }
 
@@ -56,7 +57,7 @@ header {
     background-color: #f8f9fb;
     outline: none;
     transition: border-color 0.2s, background-color 0.2s;
-    min-width: 0;                /* prevents flex shrink bug */
+    min-width: 0;
 }
 
 #searchInput:focus {
@@ -71,7 +72,7 @@ header {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -93,14 +94,12 @@ header {
     color: #d64545;
 }
 
-
 .greeting-message {
     font-weight: 700;
     font-size: 1rem;
     color: #172033;
     white-space: nowrap;
 }
-
 
 .navbar-actions {
     display: flex;
@@ -134,7 +133,6 @@ header {
     flex-shrink: 0;
 }
 
-/* ---------- Summary cards ---------- */
 .summary-display {
     display: flex;
     gap: 16px;
@@ -170,7 +168,6 @@ header {
     font-size: 1.1rem;
 }
 
-/* Individual accent colors for each card */
 .icon-overdue   { background-color: #ef4444; }
 .icon-week      { background-color: #f59e0b; }
 .icon-today     { background-color: #3b82f6; }
@@ -184,7 +181,7 @@ header {
 }
 
 .card-data {
-    font-weight: 700;
+    font-weight: 800;
     font-size: 1.35rem;
     line-height: 1;
     color: #172033;
@@ -196,7 +193,6 @@ header {
     font-weight: 500;
 }
 
-/* ---------- Filter row ---------- */
 .filter-info {
     display: flex;
     justify-content: space-between;
@@ -258,7 +254,6 @@ header {
     color: #1a6fb8;
 }
 
-/* ---------- Task list ---------- */
 .task-list {
     margin: 0 24px 30px;
 }
@@ -299,7 +294,7 @@ header {
     flex-direction: column;
     gap: 6px;
     flex: 1;
-    min-width: 0;                /* prevents long titles from breaking layout */
+    min-width: 0;
 }
 
 .task-title {
@@ -372,11 +367,6 @@ header {
     color: #172033;
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-
-/* Tablets: summary cards wrap to two per row */
 @media (max-width: 768px) {
     .summary-display {
         flex-wrap: wrap;
@@ -387,48 +377,117 @@ header {
     }
 }
 
-/* Phones: everything stacks */
 @media (max-width: 480px) {
-    header {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-        padding: 16px;
-    }
 
-    .search-form {
-        max-width: 100%;
+    header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0;
+        padding: 14px 16px;
     }
 
     .greeting-message {
-        text-align: center;
+        order: 1;
+        flex: 1;
+        font-size: 0.95rem;
+        font-weight: 600;
+        white-space: nowrap;
+        text-align: left;
+    }
+
+    .notification-bell {
+        order: 2;
+        display: flex;
+        flex-shrink: 0;
+        font-size: 1.15rem;
+        padding: 4px;
+    }
+
+    .avatar {
+        order: 3;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        margin-left: 8px;
     }
 
     .navbar-actions {
-        justify-content: center;
+        display: contents;
+    }
+
+    .search-form {
+        order: 4;
+        flex: 1 1 100%;
+        max-width: 100%;
+        display: flex;
+        gap: 8px;
+        margin-top: 14px;
+    }
+
+    #searchInput {
+        flex: 1;
+        padding: 10px 14px;
+        font-size: 0.85rem;
+        min-width: 0;
+    }
+
+    .search-form button {
+        padding: 10px 14px;
+        flex-shrink: 0;
+        font-size: 0.9rem;
     }
 
     .summary-display {
         margin: 20px 16px;
-        gap: 12px;
+        gap: 10px;
+        flex-wrap: wrap;
     }
 
     .summary-card {
-        flex: 1 1 100%;
+        flex: 1 1 calc(50% - 5px);
+        padding: 12px;
+        gap: 10px;
+        border-radius: 10px;
+    }
+
+    .card-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+    }
+
+    .card-data {
+        font-size: 1.15rem;
+    }
+
+    .card-info {
+        font-size: 0.7rem;
     }
 
     .filter-info {
         flex-direction: column;
         align-items: stretch;
-        margin: 20px 16px;
+        margin: 18px 16px;
+        gap: 12px;
     }
 
     .filter-chips {
-        justify-content: center;
+        justify-content: flex-start;
+        gap: 8px;
+    }
+
+    .filter-btn {
+        padding: 7px 14px;
+        font-size: 0.78rem;
     }
 
     .clear-btn {
-        text-align: center;
+        text-align: left;
+        padding: 4px 0;
+        font-size: 0.8rem;
     }
 
     .task-list {
@@ -437,15 +496,34 @@ header {
 
     .task-item {
         flex-wrap: wrap;
-        padding: 14px 16px;
+        padding: 14px;
         gap: 10px;
+        border-radius: 10px;
+    }
+
+    .task-checkbox {
+        width: 18px;
+        height: 18px;
     }
 
     .task-title {
+        font-size: 0.92rem;
         white-space: normal;
     }
 
+    .task-meta {
+        font-size: 0.75rem;
+        flex-wrap: wrap;
+    }
+
     .task-priority {
-        order: 1;
+        padding: 4px 10px;
+        font-size: 0.68rem;
+        order: 2;
+    }
+
+    .task-menu {
+        order: 3;
+        padding: 4px;
     }
 }
