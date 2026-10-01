@@ -18,6 +18,7 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+/*The head part of the html page*/
 header {
     width: 100%;
     background-color: #ffffff;
@@ -133,6 +134,7 @@ header {
     flex-shrink: 0;
 }
 
+/*The summary card that dispalys summary of the page*/
 .summary-display {
     display: flex;
     gap: 16px;
@@ -193,6 +195,7 @@ header {
     font-weight: 500;
 }
 
+/*The filter buttons on the HTML page*/
 .filter-info {
     display: flex;
     justify-content: space-between;
@@ -254,6 +257,65 @@ header {
     color: #1a6fb8;
 }
 
+/*Add new Task to the page*/
+.task-form-section {
+    margin: 24px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.task-form-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #172033;
+}
+
+.task-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.task-form input,
+.task-form select {
+    flex: 1 1 200px;
+    padding: 10px 14px;
+    border: 1.5px solid #d9dee7;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    background-color: #f8f9fb;
+    outline: none;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.task-form input:focus,
+.task-form select:focus {
+    border-color: #2e8fe0;
+    background-color: #ffffff;
+}
+
+.task-form button {
+    flex: 1 1 100%;
+    padding: 12px 20px;
+    background-color: #2e8fe0;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background-color 0.2s;
+}
+
+.task-form button:hover {
+    background-color: #1a6fb8;
+}
+/*The list of the task assigned*/
 .task-list {
     margin: 0 24px 30px;
 }
@@ -274,6 +336,11 @@ header {
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.task-item.completed .task-title {
+  color: #777;
+  text-decoration: line-through;
 }
 
 .task-item:hover {
@@ -391,8 +458,8 @@ header {
     .greeting-message {
         order: 1;
         flex: 1;
-        font-size: 0.95rem;
-        font-weight: 600;
+        font-size: 0.8rem;
+        font-weight: 500;
         white-space: nowrap;
         text-align: left;
     }
@@ -401,7 +468,7 @@ header {
         order: 2;
         display: flex;
         flex-shrink: 0;
-        font-size: 1.15rem;
+        font-size: 1rem;
         padding: 4px;
     }
 
@@ -488,6 +555,15 @@ header {
         text-align: left;
         padding: 4px 0;
         font-size: 0.8rem;
+    }
+    .task-form-section{
+        margin: 16px;
+        padding: 16px;
+    }
+
+    .task-form input,
+    .task-form select{
+        flex: 1 1 100%;
     }
 
     .task-list {
