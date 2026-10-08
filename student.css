@@ -125,6 +125,7 @@ header {
     color: #a855f7;
 }
 
+/*The profile avatar on the navbar*/
 .avatar {
     width: 38px;
     height: 38px;
@@ -132,6 +133,25 @@ header {
     background: linear-gradient(135deg, #a855f7, #3b82f6);
     cursor: pointer;
     flex-shrink: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.25);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.35);
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
 }
 
 /*The summary card that dispalys summary of the page*/
@@ -315,6 +335,7 @@ header {
 .task-form button:hover {
     background-color: #1a6fb8;
 }
+
 /*The list of the task assigned*/
 .task-list {
     margin: 0 24px 30px;
@@ -432,6 +453,172 @@ header {
 .task-menu:hover {
     background-color: #f0f4f8;
     color: #172033;
+}
+
+/*The empty message when there is nothing to show*/
+.task-empty {
+    text-align: center;
+    color: #7e7a7a;
+    font-size: 0.9rem;
+    padding: 24px;
+    background-color: #ffffff;
+    border-radius: 12px;
+}
+
+/*The wrapper that holds the 3 dots and the dropdown menu*/
+.task-menu-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+/*The dropdown panel that opens under the 3 dots*/
+.task-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    min-width: 190px;
+    background-color: #ffffff;
+    border: 1px solid #eef1f6;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding: 6px;
+    display: none;
+    flex-direction: column;
+    z-index: 100;
+    animation: dropdownFade 0.15s ease;
+}
+
+/*The dropdown shows when the wrapper has the open class*/
+.task-menu-wrapper.open .task-dropdown {
+    display: flex;
+}
+
+/*Small fade in so the menu does not just pop*/
+@keyframes dropdownFade {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/*Each option inside the dropdown menu*/
+.task-dropdown button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: none;
+    padding: 9px 12px;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #172033;
+    text-align: left;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.task-dropdown button i {
+    width: 14px;
+    color: #7e7a7a;
+    transition: color 0.15s;
+}
+
+.task-dropdown button:hover {
+    background-color: #f0f4f8;
+}
+
+.task-dropdown button:hover i {
+    color: #172033;
+}
+
+/*The delete option turns red*/
+.task-dropdown button.danger {
+    color: #d64545;
+}
+
+.task-dropdown button.danger i {
+    color: #d64545;
+}
+
+.task-dropdown button.danger:hover {
+    background-color: #fef2f2;
+}
+
+/*The task when it is being edited inline*/
+.task-item.editing {
+    display: block;
+    padding: 16px 20px;
+}
+
+.task-item.editing:hover {
+    transform: none;
+}
+
+/*The inline edit form*/
+.edit-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+}
+
+.edit-form input,
+.edit-form select {
+    flex: 1 1 180px;
+    padding: 9px 12px;
+    border: 1.5px solid #d9dee7;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    background-color: #f8f9fb;
+    color: #172033;
+    outline: none;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.edit-form input:focus,
+.edit-form select:focus {
+    border-color: #2e8fe0;
+    background-color: #ffffff;
+}
+
+/*The row holding save and cancel*/
+.edit-actions {
+    display: flex;
+    gap: 8px;
+    flex: 1 1 100%;
+    justify-content: flex-end;
+}
+
+.edit-actions button {
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.edit-save {
+    background-color: #2e8fe0;
+    color: #ffffff;
+}
+
+.edit-save:hover {
+    background-color: #1a6fb8;
+}
+
+.edit-cancel {
+    background-color: #ffffff;
+    border-color: #d9dee7;
+    color: #172033;
+}
+
+.edit-cancel:hover {
+    background-color: #f0f4f8;
 }
 
 @media (max-width: 768px) {
@@ -601,5 +788,26 @@ header {
     .task-menu {
         order: 3;
         padding: 4px;
+    }
+
+    /*Keep the dropdown from going off screen on mobile*/
+    .task-dropdown {
+        right: -6px;
+        min-width: 170px;
+    }
+
+    /*Stack the edit inputs and buttons nicely*/
+    .edit-form input,
+    .edit-form select {
+        flex: 1 1 100%;
+    }
+
+    .edit-actions {
+        justify-content: stretch;
+    }
+
+    .edit-actions button {
+        flex: 1;
+        padding: 10px 14px;
     }
 }
