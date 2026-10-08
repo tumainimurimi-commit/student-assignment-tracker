@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
 //select all the HTML element
 const searchInput       = document.querySelector("#searchInput");
 const submitForm        = document.querySelector("#submitForm");
@@ -20,6 +25,7 @@ const taskCourseInput   = document.querySelector("#taskCourseInput");
 const taskInputDue      = document.querySelector("#taskInputDue");
 const taskPriorityInput = document.querySelector("#taskPriorityInput");
 const taskList          = document.querySelector("#taskList");
+<<<<<<< HEAD
 
 //state
 const STORAGE_KEY  = "taskData";
@@ -46,6 +52,33 @@ function getEndOfWeek() {
 }
 
 //Turns a Date into "Due Oct 26, 11:59 PM"
+=======
+//state
+const STORAGE_KEY  = "taskData";
+const STUDENT_NAME = "Tumaini";
+
+let tasks         = [];      
+let nextId        = 1;       
+let currentFilter = "all";   
+let currentSearch = "";      
+
+//date helpers
+function getStartOfToday() {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  return d.getTime();
+}
+
+function getEndOfToday() {
+  return getStartOfToday() + 24 * 60 * 60 * 1000;
+}
+
+function getEndOfWeek() {
+  return getStartOfToday() + 7 * 24 * 60 * 60 * 1000;
+}
+
+//Turns a datetime-local value into "Due Oct 26, 11:59 PM" 
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
 function formatDueDate(date) {
   return `Due ${date.toLocaleString("en-US", {
     month: "short",
@@ -54,6 +87,7 @@ function formatDueDate(date) {
     minute: "2-digit",
     hour12: true,
   })}`;
+<<<<<<< HEAD
 }
 
 //Turns a timestamp into a value the datetime-local input understands
@@ -79,6 +113,120 @@ function escapeHtml(str) {
     }
   });
 }
+=======
+}
+
+//local storage data
+function saveTasks() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+}
+
+function loadTasksFromLocalStorage() {
+  let stored = [];
+
+  try {
+    const data = localStorage.getItem(STORAGE_KEY);
+    stored = data ? JSON.parse(data) : [];
+  } catch (error) {
+    console.error("Could not read saved tasks:", error);
+    stored = [];
+  }
+
+  if (!Array.isArray(stored)) stored = [];
+
+  // Rebuild clean task objects (protects against corrupted/old data)
+  tasks = stored.map((task, index) => {
+    const rawDueTime = Number(task.rawDueTime) || 0;
+    const dueDate =
+      task.dueDate && task.dueDate.trim() !== ""
+        ? task.dueDate
+        : rawDueTime
+        ? formatDueDate(new Date(rawDueTime))
+        : "No due date";
+
+    return {
+      id: Number(task.id) || index + 1,
+      title: String(task.title || "Untitled assignment"),
+      course: String(task.course || "No course"),
+      dueDate: dueDate,
+      rawDueTime: rawDueTime,
+      priority: String(task.priority || "low").toLowerCase(),
+      completed: Boolean(task.completed),
+    };
+  });
+
+  nextId = tasks.length > 0 ? Math.max(...tasks.map((t) => t.id)) + 1 : 1;
+}
+
+//adding new tasks
+function addTask() {
+  const taskTitle    = taskTitleInput.value.trim();
+  const taskCourse   = taskCourseInput.value.trim();
+  const taskDue      = taskInputDue.value;
+  const taskPriority = taskPriorityInput.value;
+
+  if (taskTitle === "") {
+    alert("Enter the title of the assignment.");
+    taskTitleInput.focus();
+    return;
+  }
+  if (taskCourse === "") {
+    alert("Enter the name of the course.");
+    taskCourseInput.focus();
+    return;
+  }
+  if (taskDue === "") {
+    alert("Select the due date and time.");
+    taskInputDue.focus();
+    return;
+  }
+  if (taskPriority === "") {
+    alert("Please select the priority level of the task.");
+    taskPriorityInput.focus();
+    return;
+  }
+
+  const date = new Date(taskDue);
+  if (isNaN(date.getTime())) {
+    alert("The due date and time is not valid.");
+    return;
+  }
+
+  const taskEntry = {
+    id: nextId++,
+    title: taskTitle,
+    course: taskCourse,
+    dueDate: formatDueDate(date),
+    rawDueTime: date.getTime(),
+    priority: taskPriority.toLowerCase(),
+    completed: false,
+  };
+
+  tasks.push(taskEntry);
+  saveTasks();
+
+  taskForm.reset();
+
+  // Make sure the user can see the task they just added
+  applyFilters("all");
+  render();
+}
+
+//rendering task on the webpage
+function renderTasks(taskArray) {
+  taskList.innerHTML = "";
+
+  // Empty state
+  if (!taskArray || taskArray.length === 0) {
+    const emptyLi = document.createElement("li");
+    emptyLi.className = "task-empty";
+    emptyLi.textContent = "No assignments to show here yet.";
+    emptyLi.style.cssText =
+      "text-align:center;color:#7e7a7a;font-size:0.9rem;padding:24px;background:#ffffff;border-radius:12px;";
+    taskList.append(emptyLi);
+    return;
+  }
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
 
 //local storage data
 function saveTasks() {
@@ -237,14 +385,22 @@ function renderTasks(taskArray) {
     newLi.dataset.id = `${task.id}`;
     if (task.completed) newLi.classList.add("completed");
 
+<<<<<<< HEAD
     //the checkbox
+=======
+    // Checkbox
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
     const checkInput = document.createElement("input");
     checkInput.type = "checkbox";
     checkInput.checked = task.completed;
     checkInput.className = "task-checkbox";
     checkInput.setAttribute("aria-label", "Mark as complete");
 
+<<<<<<< HEAD
     //the content wrapper
+=======
+    // Content wrapper
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
     const newDiv = document.createElement("div");
     newDiv.className = "task-content";
 
@@ -263,21 +419,29 @@ function renderTasks(taskArray) {
     spanDue.className = "task-due";
     spanDue.textContent = task.dueDate;
 
+<<<<<<< HEAD
     newP.append(spanCourse, spanDue);
     newDiv.append(newH3, newP);
 
     //the priority badge
+=======
+    // Priority badge
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
     const spanPriority = document.createElement("span");
     spanPriority.classList.add(
       "task-priority",
       `priority-${task.priority.toLowerCase()}`
     );
     spanPriority.textContent = task.priority;
+<<<<<<< HEAD
 
     //the 3 dot menu button together with its dropdown
     const menuWrapper = document.createElement("div");
     menuWrapper.className = "task-menu-wrapper";
+=======
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
 
+    // Options button
     const optionButton = document.createElement("button");
     optionButton.type = "button";
     optionButton.className = "task-menu";
@@ -318,6 +482,7 @@ function renderTasks(taskArray) {
   });
 }
 
+<<<<<<< HEAD
 //closing any open 3 dot menu
 function closeAllMenus() {
   document
@@ -544,6 +709,64 @@ function applyFilters(value) {
   render();
 }
 
+=======
+//filtering search on the search bar
+function getVisibleTasks() {
+  const now         = Date.now();
+  const startOfDay  = getStartOfToday();
+  const endOfDay    = getEndOfToday();
+  const endOfWeek   = getEndOfWeek();
+
+  let filteredTasks = [];
+
+  if (currentFilter === "all") {
+    filteredTasks = tasks.filter((task) => !task.completed);
+  } else if (currentFilter === "dueToday") {
+    filteredTasks = tasks.filter(
+      (task) =>
+        !task.completed &&
+        task.rawDueTime >= startOfDay &&
+        task.rawDueTime < endOfDay
+    );
+  } else if (currentFilter === "thisWeek") {
+    filteredTasks = tasks.filter(
+      (task) =>
+        !task.completed &&
+        task.rawDueTime >= startOfDay &&
+        task.rawDueTime < endOfWeek
+    );
+  } else if (currentFilter === "overdue") {
+    filteredTasks = tasks.filter(
+      (task) => !task.completed && task.rawDueTime < now
+    );
+  } else if (currentFilter === "completed") {
+    filteredTasks = tasks.filter((task) => task.completed);
+  }
+
+  // Apply the search text on top of the active filter
+  if (currentSearch !== "") {
+    filteredTasks = filteredTasks.filter((task) => {
+      return (
+        task.title.toLowerCase().includes(currentSearch) ||
+        task.course.toLowerCase().includes(currentSearch)
+      );
+    });
+  }
+
+  return filteredTasks;
+}
+
+/* Applies a filter chip and repaints everything */
+function applyFilters(value) {
+  currentFilter = value;
+
+  filterButton.forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.filter === value);
+  });
+
+  render();
+}
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
 //summary displayer cards
 function summaryDisplayer() {
   const now        = Date.now();
@@ -551,20 +774,32 @@ function summaryDisplayer() {
   const endOfDay   = getEndOfToday();
   const endOfWeek  = getEndOfWeek();
 
+<<<<<<< HEAD
   //overdue (still to be done)
+=======
+  // Overdue (still to be done)
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
   const overdue = tasks.filter(
     (task) => !task.completed && task.rawDueTime < now
   ).length;
   overdueInfo.textContent = overdue;
 
+<<<<<<< HEAD
   //due this week (still to be done)
+=======
+  // Due this week (still to be done)
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
   const dueWeek = tasks.filter(
     (task) =>
       !task.completed && task.rawDueTime > now && task.rawDueTime < endOfWeek
   ).length;
   dueInfo.textContent = dueWeek;
 
+<<<<<<< HEAD
   //due today (still to be done)
+=======
+  // Due today (still to be done)
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
   const dueToday = tasks.filter(
     (task) =>
       !task.completed &&
@@ -573,11 +808,19 @@ function summaryDisplayer() {
   ).length;
   dueTodayInfo.textContent = dueToday;
 
+<<<<<<< HEAD
   //completed
   const completed = tasks.filter((task) => task.completed).length;
   completedInfo.textContent = completed;
 
   //small extra touch: the bell tells you how many are overdue
+=======
+  // Completed
+  const completed = tasks.filter((task) => task.completed).length;
+  completedInfo.textContent = completed;
+
+  // Small extra touch: the bell tells you how many are overdue
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
   if (notificationBell) {
     notificationBell.title = `${overdue} overdue assignment${
       overdue === 1 ? "" : "s"
@@ -585,11 +828,16 @@ function summaryDisplayer() {
   }
 }
 
+<<<<<<< HEAD
 //the main render
+=======
+//The main render
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
 function render() {
   renderTasks(getVisibleTasks());
   summaryDisplayer();
 }
+<<<<<<< HEAD
 
 //greeting with the right time
 function updateGreeting() {
@@ -606,11 +854,27 @@ function updateGreeting() {
 
 //event listeners on the page
 /* --- add a task --- */
+=======
+//greeting with the right time
+function updateGreeting() {
+  const hour = new Date().getHours();
+  let partOfDay = "Hello";
+
+  if (hour < 12) partOfDay = "Good morning";
+  else if (hour < 18) partOfDay = "Good afternoon";
+  else partOfDay = "Good evening";
+
+  greetingMessage.textContent = `${partOfDay}, ${STUDENT_NAME}`;
+}
+//event listeners on the page
+/* --- Add a task --- */
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
 taskForm.addEventListener("submit", (event) => {
   event.preventDefault();
   addTask();
 });
 
+<<<<<<< HEAD
 /* --- filter chips --- */
 filterContainer.addEventListener("click", (event) => {
   const btn = event.target.closest("[data-filter]");
@@ -619,26 +883,48 @@ filterContainer.addEventListener("click", (event) => {
 });
 
 /* --- clear filters --- */
+=======
+/* --- Filter chips --- */
+filterContainer.addEventListener("click", (event) => {
+  const btn = event.target.closest("[data-filter]");
+  if (!btn) return;
+
+  applyFilters(btn.dataset.filter);
+});
+
+/* --- Clear filters --- */
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
 clearFilter.addEventListener("click", () => {
   currentSearch = "";
   if (searchInput) searchInput.value = "";
   applyFilters("all");
 });
 
+<<<<<<< HEAD
 /* --- search form submit --- */
+=======
+/* --- Search --- */
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
 submitForm.addEventListener("submit", (event) => {
   event.preventDefault();
   currentSearch = searchInput.value.trim().toLowerCase();
   render();
 });
 
+<<<<<<< HEAD
 /* --- live search as the user types --- */
+=======
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
 searchInput.addEventListener("input", () => {
   currentSearch = searchInput.value.trim().toLowerCase();
   render();
 });
 
+<<<<<<< HEAD
 /* --- checkbox click to mark a task complete --- */
+=======
+/* --- Check / uncheck a task --- */
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
 taskList.addEventListener("change", (event) => {
   if (!event.target.matches('input[type="checkbox"]')) return;
 
@@ -649,6 +935,7 @@ taskList.addEventListener("change", (event) => {
   const taskId = Number(li.dataset.id);
   const task = tasks.find((item) => item.id === taskId);
   if (!task) return;
+<<<<<<< HEAD
 
   task.completed = checkbox.checked;
   saveTasks();
@@ -663,3 +950,16 @@ applyFilters("all");
 
 //refresh the greeting every minute so it stays correct
 setInterval(updateGreeting, 60 * 1000);
+=======
+
+  task.completed = checkbox.checked;
+
+  saveTasks();   // persist the change
+  render();      // repaint list + summary
+});
+
+//call the function for innitializing the webpage
+updateGreeting();
+loadTasksFromLocalStorage();
+applyFilters("all");   
+>>>>>>> 12cdec4f2242f8df706c5abde4d2a2f3b6f4f9ef
