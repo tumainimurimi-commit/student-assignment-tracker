@@ -9,6 +9,7 @@
 </head>
 <body>
 
+  <!--The head part of the html page-->
   <header class="navbar">
     <form class="search-form" role="search" id="submitForm">
       <label for="searchInput" class="visually-hidden">Search assignments</label>
@@ -24,17 +25,18 @@
       <button type="button" id="notificationBell" class="notification-bell" aria-label="Notifications">
         <i class="fa-solid fa-bell"></i>
       </button>
-      <div class="avatar" aria-label="Profile" id="avatarProfile">
-      </div>
+      <!--The profile avatar — the young man picture is injected by JavaScript-->
+      <div class="avatar" aria-label="Profile" id="avatarProfile"></div>
     </div>
   </header>
 
   <main>
+    <!--The summary card that dispalys summary of the page-->
     <section class="summary-display">
       <div class="summary-card">
         <span class="card-icon icon-overdue"><i class="fa-solid fa-triangle-exclamation"></i></span>
         <div class="card-body">
-          <span class="card-data" id="overdueInfo"></span>
+          <span class="card-data" id="overdueInfo">0</span>
           <span class="card-info">Overdue</span>
         </div>
       </div>
@@ -42,7 +44,7 @@
       <div class="summary-card">
         <span class="card-icon icon-week"><i class="fa-solid fa-calendar-week"></i></span>
         <div class="card-body">
-          <span class="card-data" id="dueInfo"></span>
+          <span class="card-data" id="dueInfo">0</span>
           <span class="card-info">Due This Week</span>
         </div>
       </div>
@@ -50,7 +52,7 @@
       <div class="summary-card">
         <span class="card-icon icon-today"><i class="fa-solid fa-clock"></i></span>
         <div class="card-body">
-          <span class="card-data" id="dueTodayInfo"></span>
+          <span class="card-data" id="dueTodayInfo">0</span>
           <span class="card-info">Due Today</span>
         </div>
       </div>
@@ -58,12 +60,13 @@
       <div class="summary-card">
         <span class="card-icon icon-completed"><i class="fa-solid fa-circle-check"></i></span>
         <div class="card-body">
-          <span class="card-data" id="completedInfo"></span>
+          <span class="card-data" id="completedInfo">0</span>
           <span class="card-info">Completed</span>
         </div>
       </div>
     </section>
 
+    <!--The filter buttons on the HTML page-->
     <section class="filter-info">
       <div class="filter-chips" id="filterContainer">
         <button type="button" class="filter-btn active" data-filter="all">All</button>
@@ -74,43 +77,27 @@
       </div>
       <button type="button" id="clearFilter" class="clear-btn">Clear Filters</button>
     </section>
-    
+
     <!--The task adding and submitting form-->
     <section class="task-form-section">
       <h2 class="task-form-title">Add Assignment</h2>
-      <form  id="taskForm" class="task-form">
-        <input type="text"  id="taskTitleInput" placeholder="Add Assignment..." required>
-        <input type="text" id="taskCourseInput" placeholder="Course e.g. Information Technonolgy" required>
-        <input type="datetime-local" id="taskInputDue" required >
+      <form id="taskForm" class="task-form">
+        <input type="text" id="taskTitleInput" placeholder="Add Assignment..." required>
+        <input type="text" id="taskCourseInput" placeholder="Course e.g. Information Technology" required>
+        <input type="datetime-local" id="taskInputDue" required>
         <select id="taskPriorityInput" required>
-            <option value="">Priority</option>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
+          <option value="">Priority</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
         </select>
         <button type="submit">Add Task</button>
       </form>
     </section>
 
+    <!--The list of the task assigned — filled in by JavaScript-->
     <section class="task-list">
-      <ul id="taskList">
-        <!--
-        <li class="task-item" data-id="1">
-          <input type="checkbox" class="task-checkbox" aria-label="Mark as complete">
-          <div class="task-content">
-            <h3 class="task-title">Discrete Math Problem Set</h3>
-            <p class="task-meta">
-              <span class="task-course">Information Technology</span>
-              <span class="task-due">Due Oct 26, 11:59 PM</span>
-            </p>
-          </div>
-          <span class="task-priority priority-high">High</span>
-          <button type="button" class="task-menu" aria-label="More options">
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-          </button>
-        </li>
-        -->
-      </ul>
+      <ul id="taskList"></ul>
     </section>
   </main>
 
