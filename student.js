@@ -4,7 +4,6 @@ const submitForm = document.querySelector("#submitForm");
 const greetingMessage = document.querySelector("#greetingMessage");
 const notificationBell = document.querySelector("#notificationBell");
 const avatarProfile = document.querySelector("#avatarProfile");
-const overdueInfo = document.querySelector("#overdueInfo");
 const dueInfo = document.querySelector("#dueInfo");
 const dueTodayInfo = document.querySelector("#dueTodayInfo");
 const completedInfo = document.querySelector("#completedInfo");
